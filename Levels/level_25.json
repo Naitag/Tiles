@@ -1,0 +1,41 @@
+[
+  {
+    "@path": "res://Classes/Level.gd",
+    "@subpath": "",
+    "game_options": {
+      "@path": "res://Classes/GameOptions.gd",
+      "@subpath": "",
+      "daily_game": false,
+      "fixed_seed": "Level 26",
+      "grid_columns": 8,
+      "grid_rows": 8,
+      "long_selection_multipliers": [
+
+      ],
+      "number_of_moves": 20,
+      "number_of_tile_colors": 3,
+      "tile_modifiers": [
+        {
+          "@path": "res://Classes/TileModifierOption.gd",
+          "@subpath": "",
+          "chance": 0.01,
+          "kind": {
+            "_enum_name": "TileModifierKind",
+            "_idn": "EXTRA_MOVES"
+          },
+          "type": {
+            "_enum_name": "TileModifierType",
+            "_idn": "EXTRA_MOVES_5"
+          }
+        }
+      ]
+    },
+    "id": 25,
+    "level_name": "Level 26",
+    "score_thresholds": [
+      1802,
+      2120,
+      2569
+    ]
+  }
+]

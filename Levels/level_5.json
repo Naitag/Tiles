@@ -1,0 +1,41 @@
+[
+  {
+    "@path": "res://Classes/Level.gd",
+    "@subpath": "",
+    "game_options": {
+      "@path": "res://Classes/GameOptions.gd",
+      "@subpath": "",
+      "daily_game": false,
+      "fixed_seed": "Level 6",
+      "grid_columns": 8,
+      "grid_rows": 8,
+      "long_selection_multipliers": [
+
+      ],
+      "number_of_moves": 20,
+      "number_of_tile_colors": 3,
+      "tile_modifiers": [
+        {
+          "@path": "res://Classes/TileModifierOption.gd",
+          "@subpath": "",
+          "chance": 0.05,
+          "kind": {
+            "_enum_name": "TileModifierKind",
+            "_idn": "COLOR_MODIFIER"
+          },
+          "type": {
+            "_enum_name": "TileModifierType",
+            "_idn": "DOUBLE_COLOR"
+          }
+        }
+      ]
+    },
+    "id": 5,
+    "level_name": "Level 6",
+    "score_thresholds": [
+      1412,
+      1663,
+      1997
+    ]
+  }
+]

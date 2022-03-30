@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scenes/DailyGameScene.gd" type="Script" id=1]
+[ext_resource path="res://Textures/background2.png" type="Texture" id=2]
+[ext_resource path="res://Textures/ButtonPressedYellow.png" type="Texture" id=3]
+[ext_resource path="res://Textures/ButtonYellow.png" type="Texture" id=4]
+[ext_resource path="res://UiObjects/UiButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Textures/ButtonPressedGreen.png" type="Texture" id=6]
+[ext_resource path="res://Textures/ButtonGreen.png" type="Texture" id=7]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 540.0
+margin_top = 960.0
+margin_right = 540.0
+margin_bottom = 960.0
+alignment = 1
+
+[node name="StartGameButton" parent="." instance=ExtResource( 5 )]
+anchor_top = 0.88
+anchor_bottom = 0.88
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 6 )
+_color = 1
+_text = "Start Game"
+
+[node name="BackButton" parent="." instance=ExtResource( 5 )]
+anchor_top = 0.95
+anchor_bottom = 0.95
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 3 )
+_color = 3
+_text = "Back"
+
+[connection signal="button_up_not_ouside" from="StartGameButton" to="." method="_on_StartGameButton_button_up"]
+[connection signal="button_up_not_ouside" from="BackButton" to="." method="_on_BackButton_button_up"]

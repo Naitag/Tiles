@@ -1,0 +1,249 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "Board",
+"language": "GDScript",
+"path": "res://Board.gd"
+}, {
+"base": "Reference",
+"class": "Coordinates",
+"language": "GDScript",
+"path": "res://Coordinastes.gd"
+}, {
+"base": "TileModifier",
+"class": "DoubleColor",
+"language": "GDScript",
+"path": "res://Objects/DoubleColor.gd"
+}, {
+"base": "Node",
+"class": "Enum",
+"language": "GDScript",
+"path": "res://Enums/Enum.gd"
+}, {
+"base": "TileModifier",
+"class": "ExtraMovesModifier",
+"language": "GDScript",
+"path": "res://Objects/ExtraMovesModifier.gd"
+}, {
+"base": "Node",
+"class": "FinishedLevel",
+"language": "GDScript",
+"path": "res://Classes/FinishedLevel.gd"
+}, {
+"base": "Node",
+"class": "GameOptions",
+"language": "GDScript",
+"path": "res://Classes/GameOptions.gd"
+}, {
+"base": "Node2D",
+"class": "Grid",
+"language": "GDScript",
+"path": "res://Objects/Grid.gd"
+}, {
+"base": "Node",
+"class": "Level",
+"language": "GDScript",
+"path": "res://Classes/Level.gd"
+}, {
+"base": "Node",
+"class": "LongSelectionMultiplierOption",
+"language": "GDScript",
+"path": "res://Classes/LongSelectionMultiplierOption.gd"
+}, {
+"base": "Control",
+"class": "Menu",
+"language": "GDScript",
+"path": "res://Scenes/Menu.gd"
+}, {
+"base": "Reference",
+"class": "PathFinder",
+"language": "GDScript",
+"path": "res://PathFinder.gd"
+}, {
+"base": "TileModifier",
+"class": "ScoreMultiplier",
+"language": "GDScript",
+"path": "res://Objects/ScoreMultiplier.gd"
+}, {
+"base": "Sprite",
+"class": "Slot",
+"language": "GDScript",
+"path": "res://Objects/Slot.gd"
+}, {
+"base": "Area2D",
+"class": "Tile",
+"language": "GDScript",
+"path": "res://Objects/Tile.gd"
+}, {
+"base": "Sprite",
+"class": "TileModifier",
+"language": "GDScript",
+"path": "res://Objects/TileModifier.gd"
+}, {
+"base": "Node",
+"class": "TileModifierOption",
+"language": "GDScript",
+"path": "res://Classes/TileModifierOption.gd"
+}, {
+"base": "TextureButton",
+"class": "UiButton",
+"language": "GDScript",
+"path": "res://UiObjects/UiButton.gd"
+}, {
+"base": "TileModifier",
+"class": "UniqueModifier",
+"language": "GDScript",
+"path": "res://Objects/UniqueModifier.gd"
+} ]
+_global_script_class_icons={
+"Board": "",
+"Coordinates": "",
+"DoubleColor": "",
+"Enum": "",
+"ExtraMovesModifier": "",
+"FinishedLevel": "",
+"GameOptions": "",
+"Grid": "",
+"Level": "",
+"LongSelectionMultiplierOption": "",
+"Menu": "",
+"PathFinder": "",
+"ScoreMultiplier": "",
+"Slot": "",
+"Tile": "",
+"TileModifier": "",
+"TileModifierOption": "",
+"UiButton": "",
+"UniqueModifier": ""
+}
+
+[admob]
+
+config={
+"banner": {
+"position": 1,
+"show_instantly": false,
+"size": "ADAPTIVE",
+"unit_ids": {
+"Android": {
+"standard": "ca-app-pub-3394847051269098/7505469862"
+},
+"iOS": {
+"standard": "ca-app-pub-3940256099942544/2934735716"
+}
+}
+},
+"debug": {
+"is_test_europe_user_consent": false
+},
+"general": {
+"is_enabled": true,
+"is_for_child_directed_treatment": false,
+"max_ad_content_rating": "G"
+},
+"interstitial": {
+"unit_ids": {
+"Android": {
+"standard": "ca-app-pub-3940256099942544/1033173712"
+},
+"iOS": {
+"standard": "ca-app-pub-3940256099942544/4411468910"
+}
+}
+},
+"rewarded": {
+"unit_ids": {
+"Android": {
+"standard": "ca-app-pub-3940256099942544/5224354917"
+},
+"iOS": {
+"standard": "ca-app-pub-3940256099942544/1712485313"
+}
+}
+},
+"rewarded_interstitial": {
+"unit_ids": {
+"Android": {
+"standard": "ca-app-pub-3940256099942544/5354046379"
+},
+"iOS": {
+"standard": "ca-app-pub-3940256099942544/6978759866"
+}
+}
+}
+}
+
+[application]
+
+config/name="Tiles"
+run/main_scene="res://Scenes/BootSplash.tscn"
+boot_splash/image="res://Textures/BootSplashLogo.png"
+boot_splash/bg_color=Color( 0.141176, 0.0901961, 0.0196078, 1 )
+config/icon="res://Textures/AppIcon.png"
+config/quit_on_go_back=false
+
+[autoload]
+
+Constants="*res://Singletons/Constants.gd"
+ScoreCounter="*res://Singletons/ScoreCounter.gd"
+Highscore="*res://Singletons/Highscore.gd"
+TileFactory="*res://Singletons/TileFactory.gd"
+ModifierFactory="*res://Singletons/ModifierFactory.gd"
+HelperFunc="*res://Singletons/HelperFunc.gd"
+Options="*res://Singletons/Options.gd"
+Textures="*res://Singletons/Textures.gd"
+PlayGamesServices="*res://Singletons/PlayGamesServices.gd"
+GameServer="*res://Singletons/GameServer.gd"
+TileColor="*res://Enums/TileColor.gd"
+TileModifierKind="*res://Enums/TileModifierKind.gd"
+TileModifierType="*res://Enums/TileModifierType.gd"
+LevelsManager="*res://Singletons/LevelsManager.gd"
+SceneManager="*res://Singletons/SceneManager.gd"
+MobileAds="*res://addons/admob/src/singletons/MobileAds.gd"
+
+[display]
+
+window/size/width=1080
+window/size/height=1920
+window/handheld/orientation="portrait"
+window/stretch/mode="2d"
+window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/admob/plugin.cfg" )
+
+[global]
+
+color=false
+
+[input]
+
+click={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":8,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_clear_color=Color( 0.141176, 0.0901961, 0.0196078, 1 )
+environment/default_environment="res://default_env.tres"

@@ -1,0 +1,125 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Textures/background2.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/LevelsScene.gd" type="Script" id=2]
+[ext_resource path="res://UiObjects/UiButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Textures/ButtonBlue.png" type="Texture" id=4]
+[ext_resource path="res://Textures/ButtonPressedBlue.png" type="Texture" id=5]
+[ext_resource path="res://Fonts/highscore_font.tres" type="DynamicFont" id=6]
+[ext_resource path="res://Scenes/StarsScene.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/HalfTransparentPopupDialog.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Textures/DialogSmallGreen.png" type="Texture" id=9]
+[ext_resource path="res://Scenes/ModifiersList.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/StarThresholdInfo.tscn" type="PackedScene" id=11]
+
+[node name="LevelsScene" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.8
+anchor_bottom = 0.8
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+scroll_deadzone = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+margin_left = 324.0
+margin_top = 576.0
+margin_right = 324.0
+margin_bottom = 576.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+alignment = 1
+
+[node name="Button" parent="." instance=ExtResource( 3 )]
+visible = false
+
+[node name="BackButton" parent="." instance=ExtResource( 3 )]
+anchor_top = 0.95
+anchor_bottom = 0.95
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 5 )
+_color = 2
+_text = "Back"
+
+[node name="HalfTransparentPopupDialog" parent="." instance=ExtResource( 8 )]
+
+[node name="TextureRect" type="TextureRect" parent="HalfTransparentPopupDialog"]
+anchor_left = 0.12
+anchor_top = 0.1
+anchor_right = 0.88
+anchor_bottom = 0.85
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HalfTransparentPopupDialog/TextureRect"]
+modulate = Color( 0.866667, 0.74902, 0.470588, 1 )
+anchor_left = 0.2
+anchor_top = 0.05
+anchor_right = 0.8
+anchor_bottom = 0.135
+custom_fonts/font = ExtResource( 6 )
+text = "Level 1"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StarScene" parent="HalfTransparentPopupDialog/TextureRect" instance=ExtResource( 7 )]
+anchor_left = 0.0
+anchor_top = 0.119
+anchor_right = 1.0
+anchor_bottom = 0.281
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+
+[node name="StarThresholdInfo" parent="HalfTransparentPopupDialog/TextureRect" instance=ExtResource( 11 )]
+anchor_left = 0.113
+anchor_top = 0.29
+anchor_right = 0.113
+anchor_bottom = 0.29
+margin_left = 7.62939e-06
+margin_right = 756.0
+margin_bottom = 421.92
+
+[node name="ModifiersList" parent="HalfTransparentPopupDialog/TextureRect" instance=ExtResource( 10 )]
+anchor_left = 0.12
+anchor_top = 0.5
+anchor_right = 0.9
+anchor_bottom = 0.75
+
+[node name="StartGameButton" parent="HalfTransparentPopupDialog/TextureRect" instance=ExtResource( 3 )]
+anchor_top = 0.85
+anchor_bottom = 0.85
+_text = "Start Game"
+
+[connection signal="button_up_not_ouside" from="BackButton" to="." method="_on_BackButton_button_up"]
+[connection signal="on_close" from="HalfTransparentPopupDialog" to="." method="_on_HalfTransparentPopupDialog_on_close"]
+[connection signal="button_up_not_ouside" from="HalfTransparentPopupDialog/TextureRect/StartGameButton" to="." method="_on_StartGameButton_button_up_not_ouside"]

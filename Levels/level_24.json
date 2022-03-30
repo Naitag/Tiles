@@ -1,0 +1,41 @@
+[
+  {
+    "@path": "res://Classes/Level.gd",
+    "@subpath": "",
+    "game_options": {
+      "@path": "res://Classes/GameOptions.gd",
+      "@subpath": "",
+      "daily_game": false,
+      "fixed_seed": "Level 25",
+      "grid_columns": 8,
+      "grid_rows": 8,
+      "long_selection_multipliers": [
+
+      ],
+      "number_of_moves": 20,
+      "number_of_tile_colors": 3,
+      "tile_modifiers": [
+        {
+          "@path": "res://Classes/TileModifierOption.gd",
+          "@subpath": "",
+          "chance": 0.02,
+          "kind": {
+            "_enum_name": "TileModifierKind",
+            "_idn": "EXTRA_MOVES"
+          },
+          "type": {
+            "_enum_name": "TileModifierType",
+            "_idn": "EXTRA_MOVES_4"
+          }
+        }
+      ]
+    },
+    "id": 24,
+    "level_name": "Level 25",
+    "score_thresholds": [
+      1245,
+      1462,
+      1804
+    ]
+  }
+]

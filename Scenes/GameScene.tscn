@@ -1,0 +1,220 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Scenes/GameScene.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/DroidSans.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Objects/Grid.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Textures/background2.png" type="Texture" id=4]
+[ext_resource path="res://Textures/ButtonPressedYellow.png" type="Texture" id=5]
+[ext_resource path="res://Textures/ButtonYellow.png" type="Texture" id=6]
+[ext_resource path="res://UiObjects/UiButton.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Fonts/DroidSans-Bold.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://Scenes/StarThresholdInfo.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/StarsScene.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/HalfTransparentPopupDialog.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Textures/ButtonPressedGreen.png" type="Texture" id=12]
+[ext_resource path="res://Textures/ButtonGreen.png" type="Texture" id=13]
+
+[sub_resource type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+font_data = SubResource( 1 )
+
+[sub_resource type="Theme" id=3]
+default_font = SubResource( 2 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 45
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 26
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 150
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 8 )
+
+[node name="GameScene" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 3 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 4 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="Label" parent="."]
+modulate = Color( 0.635294, 0.133333, 0.180392, 1 )
+anchor_left = 0.01
+anchor_top = 0.1
+anchor_right = 0.5
+anchor_bottom = 0.1
+size_flags_horizontal = 3
+size_flags_vertical = 8
+custom_fonts/font = SubResource( 5 )
+text = "Score: 0"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CurrentSelectionScoreLabel" type="Label" parent="."]
+modulate = Color( 0.0352941, 0.498039, 0.278431, 1 )
+anchor_left = 0.01
+anchor_top = 0.15
+anchor_right = 0.5
+anchor_bottom = 0.16
+size_flags_horizontal = 3
+size_flags_vertical = 8
+custom_fonts/font = SubResource( 5 )
+text = "Current selection score: 0"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MovesLeftLabel" type="Label" parent="."]
+modulate = Color( 0.145098, 0.278431, 0.529412, 1 )
+anchor_left = 0.5
+anchor_top = 0.1
+anchor_right = 0.99
+anchor_bottom = 0.1
+size_flags_horizontal = 3
+size_flags_vertical = 8
+custom_fonts/font = SubResource( 5 )
+text = "Moves left: 0"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InfoLabel" type="Label" parent="."]
+anchor_left = 0.01
+anchor_top = 0.18
+anchor_right = 0.99
+anchor_bottom = 0.2
+custom_fonts/font = SubResource( 8 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+anchor_left = 0.0101852
+anchor_top = 0.22
+anchor_right = 0.989815
+anchor_bottom = 0.85
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 1058, 1209 )
+size_override_stretch = true
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+physics_object_picking = true
+
+[node name="Grid" parent="ViewportContainer/Viewport" instance=ExtResource( 3 )]
+
+[node name="BackButton" parent="." instance=ExtResource( 7 )]
+anchor_top = 0.95
+anchor_bottom = 0.95
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 5 )
+_color = 3
+_text = "Back"
+
+[node name="LevelGameOverDialog" parent="." instance=ExtResource( 11 )]
+
+[node name="StarScene" parent="LevelGameOverDialog" instance=ExtResource( 10 )]
+anchor_left = 0.0
+anchor_top = 0.45
+anchor_right = 1.0
+anchor_bottom = 0.45
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelGameOverDialog"]
+anchor_left = 0.5
+anchor_top = 0.6
+anchor_right = 0.5
+anchor_bottom = 0.6
+margin_left = -250.0
+margin_top = -102.0
+margin_right = 250.0
+margin_bottom = 102.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NextLevelButton" parent="LevelGameOverDialog/VBoxContainer" instance=ExtResource( 7 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 500.0
+margin_bottom = 100.0
+texture_normal = ExtResource( 13 )
+texture_pressed = ExtResource( 12 )
+_color = 1
+_text = "Next level"
+
+[node name="TryAgainButton" parent="LevelGameOverDialog/VBoxContainer" instance=ExtResource( 7 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 0.0
+margin_top = 104.0
+margin_right = 500.0
+margin_bottom = 204.0
+_text = "Try again"
+
+[node name="StarThresholdInfo" parent="LevelGameOverDialog" instance=ExtResource( 9 )]
+anchor_left = 0.01
+anchor_top = 0.2
+anchor_right = 0.01
+anchor_bottom = 0.2
+
+[node name="QuickGameOverDialog" parent="." instance=ExtResource( 11 )]
+
+[node name="GameOverLabel" type="Label" parent="QuickGameOverDialog"]
+modulate = Color( 0.878431, 0.768627, 0.498039, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 7 )
+text = "Game over"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="size_changed" from="ViewportContainer/Viewport" to="ViewportContainer/Viewport/Grid" method="_on_Viewport_size_changed"]
+[connection signal="button_up_not_ouside" from="BackButton" to="." method="_on_BackButton_button_up"]
+[connection signal="on_close" from="LevelGameOverDialog" to="." method="_on_HalfTransparentPopupDialog_on_close"]
+[connection signal="button_up_not_ouside" from="LevelGameOverDialog/VBoxContainer/NextLevelButton" to="." method="_on_NextLevelButton_button_up_not_ouside"]
+[connection signal="button_up_not_ouside" from="LevelGameOverDialog/VBoxContainer/TryAgainButton" to="." method="_on_TryAgainButton_button_up_not_ouside"]
+[connection signal="on_close" from="QuickGameOverDialog" to="." method="_on_HalfTransparentPopupDialog_on_close"]

@@ -1,0 +1,52 @@
+[
+  {
+    "@path": "res://Classes/Level.gd",
+    "@subpath": "",
+    "game_options": {
+      "@path": "res://Classes/GameOptions.gd",
+      "@subpath": "",
+      "daily_game": false,
+      "fixed_seed": "Level 27",
+      "grid_columns": 8,
+      "grid_rows": 8,
+      "long_selection_multipliers": [
+        {
+          "@path": "res://Classes/LongSelectionMultiplierOption.gd",
+          "@subpath": "",
+          "multiplier": 100,
+          "number_of_selected_tiles": 5
+        },
+        {
+          "@path": "res://Classes/LongSelectionMultiplierOption.gd",
+          "@subpath": "",
+          "multiplier": 200,
+          "number_of_selected_tiles": 7
+        }
+      ],
+      "number_of_moves": 20,
+      "number_of_tile_colors": 3,
+      "tile_modifiers": [
+        {
+          "@path": "res://Classes/TileModifierOption.gd",
+          "@subpath": "",
+          "chance": 0.03,
+          "kind": {
+            "_enum_name": "TileModifierKind",
+            "_idn": "EXTRA_MOVES"
+          },
+          "type": {
+            "_enum_name": "TileModifierType",
+            "_idn": "EXTRA_MOVES_2"
+          }
+        }
+      ]
+    },
+    "id": 26,
+    "level_name": "Level 27",
+    "score_thresholds": [
+      88587,
+      126694,
+      184994
+    ]
+  }
+]

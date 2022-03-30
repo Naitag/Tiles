@@ -1,0 +1,65 @@
+[
+  {
+    "@path": "res://Classes/Level.gd",
+    "@subpath": "",
+    "game_options": {
+      "@path": "res://Classes/GameOptions.gd",
+      "@subpath": "",
+      "daily_game": false,
+      "fixed_seed": "Level 28",
+      "grid_columns": 8,
+      "grid_rows": 8,
+      "long_selection_multipliers": [
+        {
+          "@path": "res://Classes/LongSelectionMultiplierOption.gd",
+          "@subpath": "",
+          "multiplier": 15,
+          "number_of_selected_tiles": 5
+        },
+        {
+          "@path": "res://Classes/LongSelectionMultiplierOption.gd",
+          "@subpath": "",
+          "multiplier": 30,
+          "number_of_selected_tiles": 7
+        }
+      ],
+      "number_of_moves": 20,
+      "number_of_tile_colors": 3,
+      "tile_modifiers": [
+        {
+          "@path": "res://Classes/TileModifierOption.gd",
+          "@subpath": "",
+          "chance": 0.03,
+          "kind": {
+            "_enum_name": "TileModifierKind",
+            "_idn": "EXTRA_MOVES"
+          },
+          "type": {
+            "_enum_name": "TileModifierType",
+            "_idn": "EXTRA_MOVES_2"
+          }
+        },
+        {
+          "@path": "res://Classes/TileModifierOption.gd",
+          "@subpath": "",
+          "chance": 0.01,
+          "kind": {
+            "_enum_name": "TileModifierKind",
+            "_idn": "EXTRA_MOVES"
+          },
+          "type": {
+            "_enum_name": "TileModifierType",
+            "_idn": "EXTRA_MOVES_3"
+          }
+        }
+      ]
+    },
+    "id": 27,
+    "level_name": "Level 28",
+    "score_thresholds": [
+      8743,
+      12563,
+      20034
+    ]
+  }
+]

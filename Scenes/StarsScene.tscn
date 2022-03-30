@@ -1,0 +1,80 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Textures/StarYellow.png" type="Texture" id=1]
+[ext_resource path="res://Textures/StarEmpty.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/StarsScene.gd" type="Script" id=3]
+
+[node name="StarScene" type="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -540.0
+margin_top = -960.0
+margin_right = 540.0
+margin_bottom = 960.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StarEmpty" type="TextureRect" parent="."]
+anchor_left = 0.1
+anchor_top = 0.45
+anchor_right = 0.1
+anchor_bottom = 0.45
+margin_top = -90.0
+margin_right = 180.0
+margin_bottom = 90.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="StarYellow" type="TextureRect" parent="StarEmpty"]
+visible = false
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="StarEmpty2" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.44
+anchor_right = 0.5
+anchor_bottom = 0.443708
+margin_left = -90.0
+margin_top = -90.0
+margin_right = 90.0
+margin_bottom = 90.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="StarYellow" type="TextureRect" parent="StarEmpty2"]
+visible = false
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="StarEmpty3" type="TextureRect" parent="."]
+anchor_left = 0.9
+anchor_top = 0.45
+anchor_right = 0.9
+anchor_bottom = 0.45
+margin_left = -180.0
+margin_top = -90.9
+margin_bottom = 90.9
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="StarYellow" type="TextureRect" parent="StarEmpty3"]
+visible = false
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}

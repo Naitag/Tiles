@@ -1,0 +1,41 @@
+[
+  {
+    "@path": "res://Classes/Level.gd",
+    "@subpath": "",
+    "game_options": {
+      "@path": "res://Classes/GameOptions.gd",
+      "@subpath": "",
+      "daily_game": false,
+      "fixed_seed": "Level 15",
+      "grid_columns": 8,
+      "grid_rows": 10,
+      "long_selection_multipliers": [
+
+      ],
+      "number_of_moves": 20,
+      "number_of_tile_colors": 4,
+      "tile_modifiers": [
+        {
+          "@path": "res://Classes/TileModifierOption.gd",
+          "@subpath": "",
+          "chance": 0.05,
+          "kind": {
+            "_enum_name": "TileModifierKind",
+            "_idn": "SCORE_MULTIPLIER"
+          },
+          "type": {
+            "_enum_name": "TileModifierType",
+            "_idn": "SCORE_MULTIPIER_X4"
+          }
+        }
+      ]
+    },
+    "id": 14,
+    "level_name": "Level 15",
+    "score_thresholds": [
+      1080,
+      1602,
+      2610
+    ]
+  }
+]

@@ -1,0 +1,8 @@
+android/*
+.import/*
+.vscode/*
+*.aab
+Tilescs.x86_64
+Tilescs.pck
+Godot_v3.4.2-stable_linux_server.64
+export_presets.cfg
