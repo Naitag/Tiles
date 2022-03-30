@@ -3,50 +3,60 @@ class_name Tile
 
 onready var sprite = get_node("Sprite")
 
-var _modifiers = []
 var colors = []
+var selected = false
 
 var _disabled = false
 var falling_off_grid = false
 
 func select():
-	for child in get_children():
+	selected = true
+	$Sprite.set_modulate(Color(2, 2, 2))
+	for child in $Modifiers.get_children():
 		if child is Sprite:
 			child.set_modulate(Color(2, 2, 2))
+		elif child.has_method("select"):
+			child.select()
 	
 func deselect():
-	for child in get_children():
-		if child is Sprite:
-			child.set_modulate(Color(1, 1, 1))
+	selected = false
+	$Sprite.set_modulate(Color(1, 1, 1))
+	for child in $Modifiers.get_children():
+		child.set_modulate(Color(1, 1, 1))
+		if child.has_method("deselect"):
+			child.deselect()
+			
+func hide():
+	monitorable = false
+	$Sprite.hide()
+	for child in $Modifiers.get_children():
+		child.hide()
 
 func set_color(color: TileColor):
 	$Sprite.texture = Constants.get_tile_texture(color)
 	$Particles2D.process_material = $Particles2D.process_material.duplicate()
 	$Particles2D.process_material.set_shader_param("sprite", $Sprite.texture)
 	colors.append(color)
-
-func add_modifier(modifier: TileModifier):
-	_modifiers.append(modifier)
-	if modifier is DoubleColor:
-		colors.append_array(modifier.colors)
-	$Sprite.add_child(modifier)
-
-func set_unique_modifier(modifier: UniqueModifier):
-	_modifiers = [modifier]
-	colors = []
-	_disabled = modifier.disable_tile_selection
-	falling_off_grid = modifier.falling_off_grid
-	set_color(modifier.color)
-	add_child(modifier)
+	
+func add_modifier(modifier: Node):
+	$Modifiers.add_child(modifier)
 	
 func get_modifiers() -> Array:
-	return _modifiers
+	return $Modifiers.get_children()
 	
 func is_disabled() -> bool:
 	return _disabled
-	
+
+func get_modifiers_of_type(interface: Script) -> Array:
+	var result = []
+	for modifier in $Modifiers.get_children():
+		if modifier is interface:
+			result.append(modifier)
+
+	return result
+
 func destroy():
-	$Sprite.hide()
+	hide()
 	var lifetime = $Particles2D.lifetime
 	var explosiveness = $Particles2D.explosiveness
 	$Particles2D.emitting = true
@@ -54,3 +64,17 @@ func destroy():
 	
 func _destroy():
 	queue_free()
+
+func get_random_color_not_in_tile() -> TileColor:
+	var colors_availible = []
+	for i in Constants.ALL_COLORS.size():
+		if i >= Options.current_level.game_options.number_of_tile_colors:
+			break
+		
+		colors_availible.append(Constants.ALL_COLORS[i])
+		
+	for color in colors:
+		colors_availible.erase(color)
+
+	var i = randi() % colors_availible.size()
+	return colors_availible[i]

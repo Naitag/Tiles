@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Textures/background2.png" type="Texture" id=1]
+[ext_resource path="res://Textures/ButtonPressedBlue.png" type="Texture" id=2]
+[ext_resource path="res://Textures/ButtonBlue.png" type="Texture" id=3]
+[ext_resource path="res://UiObjects/UiButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Textures/ButtonPressedGreen.png" type="Texture" id=5]
+[ext_resource path="res://Textures/ButtonGreen.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/VsGames.gd" type="Script" id=7]
+
+[node name="VsGames" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.6
+margin_left = -6.0
+margin_top = -6.0
+margin_right = 6.0
+margin_bottom = 6.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+custom_constants/separation = 50
+
+[node name="CreateButton" parent="." instance=ExtResource( 4 )]
+anchor_top = 0.7
+anchor_bottom = 0.7
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 5 )
+_color = 1
+_text = "Create"
+
+[node name="BackButton" parent="." instance=ExtResource( 4 )]
+anchor_top = 0.95
+anchor_bottom = 0.95
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 2 )
+_color = 2
+_text = "Back"
+
+[connection signal="button_up_not_ouside" from="CreateButton" to="." method="_on_CreateButton_button_up_not_ouside"]
+[connection signal="button_up_not_ouside" from="BackButton" to="." method="_on_BackButton_button_up_not_ouside"]

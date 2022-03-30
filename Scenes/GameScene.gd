@@ -100,6 +100,8 @@ func _on_game_over(score: int):
 		
 		yield(get_tree().create_timer(1), "timeout")
 		$LevelGameOverDialog/StarScene.show_stars(number_of_stars)
+	else:
+		$QuickGameOverDialog.popup()
 
 func _on_new_finished_level(finished_level: FinishedLevel):
 	if Options.current_level.game_options.daily_game:

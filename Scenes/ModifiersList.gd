@@ -9,10 +9,10 @@ onready var template_description = $ScrollContainer/GridContainer/ExampleDescrip
 onready var templates = [template_description, template_label, template_texture_rect]
 
 var descriptions = {
-	TileModifierKind.SCORE_MULTIPLIER: "Adds a multiplier to the current score",
-	TileModifierKind.COLOR_MODIFIER: "Adds additional color to the tile",
-	"LongSelectionMultiplierOption": "After 3 selections with %d or more tiles, adds a multiplier",
-	TileModifierKind.EXTRA_MOVES: "Adds extra moves"
+	# TileModifierKind.SCORE_MULTIPLIER: "Adds a multiplier to the current score",
+	# TileModifierKind.COLOR_MODIFIER: "Adds additional color to the tile",
+	# "LongSelectionMultiplierOption": "After 3 selections with %d or more tiles, adds a multiplier",
+	# TileModifierKind.EXTRA_MOVES: "Adds extra moves"
 }
 
 func load_modifiers(level: Level):
@@ -30,22 +30,22 @@ func _load_tile_modifiers(level: Level):
 		
 		var label = template_description.duplicate()
 		label.show()
-		label.text = descriptions[modifier_option.kind]
+#		label.text = descriptions[modifier_option.kind]
 		container.add_child(label)
 		
-func _create_tile_with_modifier(modifier_option: TileModifierOption) -> TextureRect:
-	var tile_texture = Constants.get_tile_texture(TileColor.BLUE)
+func _create_tile_with_modifier(modifier_option) -> TextureRect:
+	var tile_texture = Constants.get_tile_texture(Constants.BLUE)
 	var tile = template_texture_rect.duplicate()
 	tile.show()
 	tile.texture = tile_texture
 	
 	var modifier_texture
-	if modifier_option.kind == TileModifierKind.SCORE_MULTIPLIER:
-		modifier_texture = Textures.get_score_multiplier_textures()[modifier_option.type.get_idn()]
-	elif modifier_option.kind == TileModifierKind.COLOR_MODIFIER:
-		modifier_texture = Textures.get_half_tile_textures()[TileColor.RED.get_idn()]
-	elif modifier_option.kind == TileModifierKind.EXTRA_MOVES:
-		modifier_texture = Textures.get_extra_moves_textures()[modifier_option.type.get_idn()]
+	# if modifier_option.kind == TileModifierKind.SCORE_MULTIPLIER:
+	# 	modifier_texture = Textures.get_score_multiplier_textures()[modifier_option.type.get_idn()]
+	# elif modifier_option.kind == TileModifierKind.COLOR_MODIFIER:
+	# 	modifier_texture = Textures.get_half_tile_textures()[TileColor.RED.get_idn()]
+	# elif modifier_option.kind == TileModifierKind.EXTRA_MOVES:
+	# 	modifier_texture = Textures.get_extra_moves_textures()[modifier_option.type.get_idn()]
 		
 	var modifier = TextureRect.new()
 	modifier.texture = modifier_texture

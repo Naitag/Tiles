@@ -44,9 +44,9 @@ func _on_level_click(id):
 	_selected_level = level
 	$HalfTransparentPopupDialog/TextureRect/Label.text = level.level_name
 	
-	$HalfTransparentPopupDialog/TextureRect/StarThresholdInfo.set_1_star_score(level.score_thresholds[0])
-	$HalfTransparentPopupDialog/TextureRect/StarThresholdInfo.set_2_star_score(level.score_thresholds[1])
-	$HalfTransparentPopupDialog/TextureRect/StarThresholdInfo.set_3_star_score(level.score_thresholds[2])
+#	$HalfTransparentPopupDialog/TextureRect/StarThresholdInfo.set_1_star_score(level.score_thresholds[0])
+#	$HalfTransparentPopupDialog/TextureRect/StarThresholdInfo.set_2_star_score(level.score_thresholds[1])
+#	$HalfTransparentPopupDialog/TextureRect/StarThresholdInfo.set_3_star_score(level.score_thresholds[2])
 	
 	$HalfTransparentPopupDialog/TextureRect/ModifiersList.load_modifiers(level)                 
 	

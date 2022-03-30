@@ -4,5 +4,4 @@
 
 [node name="ScoreMultiplier" type="Sprite"]
 z_index = 1
-centered = false
 script = ExtResource( 1 )

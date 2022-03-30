@@ -45,12 +45,16 @@ func _on_data(id):
 	# and not get_packet directly when not using the MultiplayerAPI.
 	var pkt = _server.get_peer(id).get_packet()
 	var message = pkt.get_string_from_utf8()
+	var request_dict = parse_json(message)
 	
-	print(message)
-	if message == "getRandomLevel":
+	if request_dict.GameType == "vsGame":
 		var level = _create_random_level()
-		var dict = HelperFunc.to_dict(level)
-		var json = JSON.print(dict)
+		var level_dict = HelperFunc.to_dict(level)
+		var response = {
+			"Guid": request_dict.Guid,
+			"Game": to_json(level_dict)
+		}
+		var json = JSON.print(response)
 		var peer = _server.get_peer(id)
 		peer.put_packet(json.to_utf8())
 
@@ -61,48 +65,15 @@ func _process(delta):
 	
 func _create_random_level() -> Level:
 	var score_multipliers = [
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X5,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X4,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X3,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X2,
-			0.03),
+
 	]
 	
 	var color_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.COLOR_MODIFIER,
-			TileModifierType.DOUBLE_COLOR,
-			0.05),
+
 	]
 	
 	var extra_moves = [
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_5,
-			0.01),
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_4,
-			0.02),
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_3,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_2,
-			0.03),
+
 	]
 	
 	var level = Level.new()
@@ -117,18 +88,21 @@ func _create_random_level() -> Level:
 	tile_modifiers.append_array(_get_modifier(1, extra_moves))
 	game_options.tile_modifiers = tile_modifiers
 	
-	var number_of_lsm = (randi() % 3) + 1
-	var steps = [5, 7, 9, 11]
-	var first_multiplier = ((randi() % 5) + 1) * 5
-	
-	for i in number_of_lsm:
-		var multiplier = first_multiplier * (i + 1)
-		var lsmo = LongSelectionMultiplierOption.create(steps[i], multiplier)
-		game_options.long_selection_multipliers.append(lsmo)
+#	var number_of_lsm = (randi() % 3) + 1
+#	var steps = [5, 7, 9, 11]
+#	var first_multiplier = ((randi() % 5) + 1) * 5
+#
+#	for i in number_of_lsm:
+#		var multiplier = first_multiplier * (i + 1)
+#		var lsmo = LongSelectionMultiplierOption.create(steps[i], multiplier)
+#		game_options.long_selection_multipliers.append(lsmo)
 		
 	return level
 
 func _get_modifier(count: int, modifiers: Array) -> Array:
+	if modifiers.size() == 0:
+		return []
+	
 	var result = []
 	var copy = modifiers.duplicate(true)
 	for i in count:

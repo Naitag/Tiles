@@ -1,14 +1,9 @@
-extends TileModifier
+extends Sprite
 class_name DoubleColor
 
-var colors = []
+var options: DoubleColorOptions
 
-func _init(type: TileModifierType):
-	_kind = TileModifierKind.COLOR_MODIFIER
-	_type = type
+var color: TileColor
 
-func set_color(color: TileColor):
+func _ready():
 	texture = Constants.get_half_tile_texture(color)
-	colors.append(color)
-		
-	centered = false

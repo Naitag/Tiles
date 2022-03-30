@@ -13,613 +13,131 @@ func _on_level_star_scores(level: Level, scores: Array):
 func _ready():
 	$Tests.connect("level_star_scores", self, "_on_level_star_scores")
 	
+	var modifiers = [
+		ModifierCreateObject.create(
+			ScoreMultiplier,
+			ScoreMultiplierOptions.create(2),
+			0.05	
+		),
+		ModifierCreateObject.create(
+			ScoreMultiplier,
+			ScoreMultiplierOptions.create(3),
+			0.05	
+		),
+		ModifierCreateObject.create(
+			ScoreMultiplier,
+			ScoreMultiplierOptions.create(4),
+			0.05	
+		),
+		ModifierCreateObject.create(
+			ScoreMultiplier,
+			ScoreMultiplierOptions.create(5),
+			0.05	
+		),
+		ModifierCreateObject.create(
+			ExtraMovesModifier,
+			ExtraMovesModifierOptions.create(2),
+			0.03
+		),
+		ModifierCreateObject.create(
+			ExtraMovesModifier,
+			ExtraMovesModifierOptions.create(3),
+			0.02
+		),
+		ModifierCreateObject.create(
+			ExtraMovesModifier,
+			ExtraMovesModifierOptions.create(4),
+			0.01
+		),
+		ModifierCreateObject.create(
+			ExtraMovesModifier,
+			ExtraMovesModifierOptions.create(5),
+			0.01
+		),
+		ModifierCreateObject.create(
+			DoubleColor,
+			DoubleColorOptions.create(),
+			0.05
+		),
+		ModifierCreateObject.create(
+			ArrowModifier,
+			ArrowModifierOptions.create(),
+			0.05
+		)
+	]
+
 	var game_options = GameOptions.new()
 	game_options.number_of_tile_colors = 3
 	game_options.number_of_moves = 20
 	game_options.tile_modifiers = [
 	]
 	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 3
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X2,
-			0.05),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 3
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X3,
-			0.05),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 3
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X4,
-			0.05),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 3
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X5,
-			0.05),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 3
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.COLOR_MODIFIER,
-			TileModifierType.DOUBLE_COLOR,
-			0.05),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 3
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-	]
-	game_options.long_selection_multipliers = [
-		LongSelectionMultiplierOption.create(5, 10),
-		LongSelectionMultiplierOption.create(7, 20),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 3
-	game_options.number_of_moves = 30
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X2,
-			0.05),
-		TileModifierOption.new(
-			TileModifierKind.COLOR_MODIFIER,
-			TileModifierType.DOUBLE_COLOR,
-			0.05),
-	]
-	game_options.long_selection_multipliers = [
-		LongSelectionMultiplierOption.create(5, 10),
-		LongSelectionMultiplierOption.create(7, 20),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 3
-	game_options.number_of_moves = 30
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X4,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X3,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X2,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.COLOR_MODIFIER,
-			TileModifierType.DOUBLE_COLOR,
-			0.05),
-	]
-	game_options.long_selection_multipliers = [
-		LongSelectionMultiplierOption.create(5, 10),
-		LongSelectionMultiplierOption.create(7, 20),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 3
-	game_options.number_of_moves = 30
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X5,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X4,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X3,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X2,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.COLOR_MODIFIER,
-			TileModifierType.DOUBLE_COLOR,
-			0.05),
-	]
-	game_options.long_selection_multipliers = [
-		LongSelectionMultiplierOption.create(5, 10),
-		LongSelectionMultiplierOption.create(7, 20),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 3
-	game_options.number_of_moves = 30
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X5,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X4,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X3,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X2,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.COLOR_MODIFIER,
-			TileModifierType.DOUBLE_COLOR,
-			0.05),
-	]
-	game_options.long_selection_multipliers = [
-		LongSelectionMultiplierOption.create(5, 10),
-		LongSelectionMultiplierOption.create(7, 20),
-		LongSelectionMultiplierOption.create(9, 40),
-	]
-	_add_level(game_options)
 
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 4
-	game_options.grid_rows = 10
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 4
-	game_options.grid_rows = 10
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X2,
-			0.05),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 4
-	game_options.grid_rows = 10
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X3,
-			0.05),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 4
-	game_options.grid_rows = 10
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X4,
-			0.05),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 4
-	game_options.grid_rows = 10
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X5,
-			0.05),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 4
-	game_options.grid_rows = 10
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.COLOR_MODIFIER,
-			TileModifierType.DOUBLE_COLOR,
-			0.05),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 4
-	game_options.grid_rows = 10
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-	]
-	game_options.long_selection_multipliers = [
-		LongSelectionMultiplierOption.create(5, 10),
-		LongSelectionMultiplierOption.create(7, 20),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 4
-	game_options.grid_rows = 10
-	game_options.number_of_moves = 30
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X2,
-			0.05),
-		TileModifierOption.new(
-			TileModifierKind.COLOR_MODIFIER,
-			TileModifierType.DOUBLE_COLOR,
-			0.05),
-	]
-	game_options.long_selection_multipliers = [
-		LongSelectionMultiplierOption.create(5, 10),
-		LongSelectionMultiplierOption.create(7, 20),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 4
-	game_options.grid_rows = 10
-	game_options.number_of_moves = 30
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X4,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X3,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X2,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.COLOR_MODIFIER,
-			TileModifierType.DOUBLE_COLOR,
-			0.05),
-	]
-	game_options.long_selection_multipliers = [
-		LongSelectionMultiplierOption.create(5, 10),
-		LongSelectionMultiplierOption.create(7, 20),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 4
-	game_options.grid_rows = 10
-	game_options.number_of_moves = 30
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X5,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X4,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X3,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X2,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.COLOR_MODIFIER,
-			TileModifierType.DOUBLE_COLOR,
-			0.05),
-	]
-	game_options.long_selection_multipliers = [
-		LongSelectionMultiplierOption.create(5, 10),
-		LongSelectionMultiplierOption.create(7, 20),
-	]
-	_add_level(game_options)
-
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 4
-	game_options.grid_rows = 10
-	game_options.number_of_moves = 30
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X5,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X4,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X3,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X2,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.COLOR_MODIFIER,
-			TileModifierType.DOUBLE_COLOR,
-			0.05),
-	]
-	game_options.long_selection_multipliers = [
-		LongSelectionMultiplierOption.create(5, 10),
-		LongSelectionMultiplierOption.create(7, 20),
-		LongSelectionMultiplierOption.create(9, 40),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 3
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_2,
-			0.03),
-	]
-	game_options.long_selection_multipliers = [
+	for m in modifiers:
+		game_options = GameOptions.new()
+		game_options.number_of_tile_colors = 3
+		game_options.number_of_moves = 20
+		game_options.tile_modifiers = [
+			m
+		]
+		_add_level(game_options)
 		
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 3
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_3,
-			0.03),
-	]
-	game_options.long_selection_multipliers = [
+	for i in modifiers.size() - 2:
+		var m = modifiers[i]
+		game_options = GameOptions.new()
+		game_options.number_of_tile_colors = 3
+		game_options.number_of_moves = 20
+		game_options.tile_modifiers = [
+			modifiers[modifiers.size() - 2],
+			m
+		]
+		_add_level(game_options)
 		
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 3
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_4,
-			0.02),
-	]
-	game_options.long_selection_multipliers = [
+	for i in modifiers.size() - 2:
+		var m = modifiers[i]
+		game_options = GameOptions.new()
+		game_options.number_of_tile_colors = 3
+		game_options.number_of_moves = 20
+		game_options.tile_modifiers = [
+			modifiers[modifiers.size() - 1],
+			m
+		]
+		_add_level(game_options)
 		
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 3
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_5,
-			0.01),
-	]
-	game_options.long_selection_multipliers = [
+	for i in modifiers.size() - 2:
+		var m = modifiers[i]
+		game_options = GameOptions.new()
+		game_options.number_of_tile_colors = 3
+		game_options.number_of_moves = 20
+		game_options.tile_modifiers = [
+			modifiers[modifiers.size() - 2],
+			modifiers[modifiers.size() - 1],
+			m
+		]
+		_add_level(game_options)
 		
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 3
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_2,
-			0.03),
-	]
-	game_options.long_selection_multipliers = [
-		LongSelectionMultiplierOption.create(5, 100),
-		LongSelectionMultiplierOption.create(7, 200),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 3
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_2,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_3,
-			0.01),
-	]
-	game_options.long_selection_multipliers = [
-		LongSelectionMultiplierOption.create(5, 15),
-		LongSelectionMultiplierOption.create(7, 30),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 3
-	game_options.number_of_moves = 20
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_5,
-			0.01),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X5,
-			0.01),
-		TileModifierOption.new(
-			TileModifierKind.COLOR_MODIFIER,
-			TileModifierType.DOUBLE_COLOR,
-			0.03),
-	]
-	game_options.long_selection_multipliers = [
-		LongSelectionMultiplierOption.create(5, 15),
-		LongSelectionMultiplierOption.create(7, 30),
-	]
-	_add_level(game_options)
-
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 4
-	game_options.grid_rows = 10
-	game_options.number_of_moves = 30
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_2,
-			0.03),
-	]
-	game_options.long_selection_multipliers = [
-		
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 4
-	game_options.grid_rows = 10
-	game_options.number_of_moves = 30
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_3,
-			0.03),
-	]
-	game_options.long_selection_multipliers = [
-		
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 4
-	game_options.grid_rows = 10
-	game_options.number_of_moves = 30
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_4,
-			0.02),
-	]
-	game_options.long_selection_multipliers = [
-		
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 4
-	game_options.grid_rows = 10
-	game_options.number_of_moves = 30
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_5,
-			0.01),
-	]
-	game_options.long_selection_multipliers = [
-		
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 4
-	game_options.grid_rows = 10
-	game_options.number_of_moves = 30
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_2,
-			0.03),
-	]
-	game_options.long_selection_multipliers = [
-		LongSelectionMultiplierOption.create(5, 100),
-		LongSelectionMultiplierOption.create(7, 200),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 4
-	game_options.grid_rows = 10
-	game_options.number_of_moves = 30
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_2,
-			0.03),
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_3,
-			0.01),
-	]
-	game_options.long_selection_multipliers = [
-		LongSelectionMultiplierOption.create(5, 15),
-		LongSelectionMultiplierOption.create(7, 30),
-	]
-	_add_level(game_options)
-	
-	game_options = GameOptions.new()
-	game_options.number_of_tile_colors = 4
-	game_options.grid_rows = 10
-	game_options.number_of_moves = 30
-	game_options.tile_modifiers = [
-		TileModifierOption.new(
-			TileModifierKind.EXTRA_MOVES,
-			TileModifierType.EXTRA_MOVES_5,
-			0.01),
-		TileModifierOption.new(
-			TileModifierKind.SCORE_MULTIPLIER,
-			TileModifierType.SCORE_MULTIPIER_X5,
-			0.01),
-		TileModifierOption.new(
-			TileModifierKind.COLOR_MODIFIER,
-			TileModifierType.DOUBLE_COLOR,
-			0.03),
-	]
-	game_options.long_selection_multipliers = [
-		LongSelectionMultiplierOption.create(5, 15),
-		LongSelectionMultiplierOption.create(7, 30),
-	]
-	_add_level(game_options)
+#	game_options = GameOptions.new()
+#	game_options.number_of_tile_colors = 4
+#	game_options.grid_rows = 10
+#	game_options.number_of_moves = 20
+#	game_options.tile_modifiers = [
+#	]
+#	_add_level(game_options)
+#
+#	for m in modifiers:
+#		game_options = GameOptions.new()
+#		game_options.number_of_tile_colors = 4
+#		game_options.grid_rows = 10
+#		game_options.number_of_moves = 20
+#		game_options.tile_modifiers = [
+#			m,
+#			ModifierCreateObject.create(
+#				ArrowModifier,
+#				ArrowModifierOptions.create(),
+#				0.05
+#			)
+#		]
+#		_add_level(game_options)
 	
 	Options.is_test = true
 	$Tests.get_level_star_scores(levels[0])

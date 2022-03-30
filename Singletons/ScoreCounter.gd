@@ -86,9 +86,8 @@ func _get_moves_with_modifiers(number_of_moves: int, selected_slots: Array):
 		modifiers.append_array(m)
 	
 	for m in modifiers:
-		var modifier = m as TileModifier
-		if modifier.get_kind() == TileModifierKind.EXTRA_MOVES:
-			result = modifier.modify_number_of_moves(result)
+		if m is ExtraMovesModifier:
+			result = m.modify_number_of_moves(result)
 			
 	return result
 		
@@ -114,9 +113,8 @@ func _get_score_with_modifiers(score: int, selected_slots: Array):
 		modifiers.append_array(m)
 	
 	for m in modifiers:
-		var modifier = m as TileModifier
-		if modifier.get_kind() == TileModifierKind.SCORE_MULTIPLIER:
-			result = modifier.modify_score(result)
+		if m is ScoreMultiplier:
+			result = m.modify_score(result)
 			
 	return result
 	

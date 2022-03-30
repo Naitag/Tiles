@@ -26,7 +26,7 @@ func load_levels_from_file():
 	directory.list_dir_begin()
 	var file_name = directory.get_next()
 	while file_name != "":
-		if not directory.current_is_dir():
+		if not directory.current_is_dir() and not file_name.ends_with("_new.json"):
 			var level = HelperFunc.load_from_file(_levels_dir + file_name)[0] as Level
 			level.level_game = true
 			levels.append(level)
@@ -36,7 +36,7 @@ func load_levels_from_file():
 	_levels = levels
 
 func load_finished_games_from_file():
-	_finished_levels = HelperFunc.load_from_file(_finished_levels_file_path)
+#	_finished_levels = HelperFunc.load_from_file(_finished_levels_file_path)
 	for i in _levels.size():
 		var level = _levels[i] as Level
 		
@@ -114,12 +114,13 @@ func _init_quick_game_level():
 	var game_options = _quick_game_level.game_options
 	game_options.number_of_moves = 30
 	game_options.tile_modifiers = [
-		TileModifierOption.new(TileModifierKind.SCORE_MULTIPLIER, TileModifierType.SCORE_MULTIPIER_X5, 0.005),
-		TileModifierOption.new(TileModifierKind.SCORE_MULTIPLIER, TileModifierType.SCORE_MULTIPIER_X4, 0.015),
-		TileModifierOption.new(TileModifierKind.SCORE_MULTIPLIER, TileModifierType.SCORE_MULTIPIER_X3, 0.025),
-		TileModifierOption.new(TileModifierKind.SCORE_MULTIPLIER, TileModifierType.SCORE_MULTIPIER_X2, 0.035),
-		TileModifierOption.new(TileModifierKind.SCORE_MULTIPLIER, TileModifierType.SCORE_MULTIPIER_X2, 0.035),
-		TileModifierOption.new(TileModifierKind.COLOR_MODIFIER, TileModifierType.DOUBLE_COLOR, 0.035),
+		ModifierCreateObject.create(ScoreMultiplier, ScoreMultiplierOptions.create(5), 0.005),
+		ModifierCreateObject.create(ScoreMultiplier, ScoreMultiplierOptions.create(4), 0.015),
+		ModifierCreateObject.create(ScoreMultiplier, ScoreMultiplierOptions.create(3), 0.025),
+		ModifierCreateObject.create(ScoreMultiplier, ScoreMultiplierOptions.create(2), 0.035),
+		ModifierCreateObject.create(ScoreMultiplier, ScoreMultiplierOptions.create(2), 0.035),
+		ModifierCreateObject.create(DoubleColor, DoubleColorOptions.create(), 0.035),
+		ModifierCreateObject.create(ArrowModifier, ArrowModifierOptions.create(), 0.2),
 	]
 	game_options.long_selection_multipliers = [
 		LongSelectionMultiplierOption.create(5, 10),

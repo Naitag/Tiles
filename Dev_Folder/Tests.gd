@@ -18,6 +18,8 @@ func comaprison(a, b):
 
 func _ready():
 	OS.vsync_enabled = false
+	Engine.time_scale = 2
+	Engine.iterations_per_second = 240
 	ScoreCounter.connect("game_over", self, "game_over")
 
 func start_tests():
@@ -41,6 +43,7 @@ func get_level_star_scores(level: Level):
 		var new_level_dict = HelperFunc.to_dict(level)
 		
 		if to_json(saved_level_dict) == to_json(new_level_dict):
+			HelperFunc.save_to_file_new("res://Levels/level_%s_new.json" % level.id, level)
 			print("skipping level: %s, hash identical" % level.id)
 			emit_signal("level_star_scores", level, level.score_thresholds)
 			return
@@ -64,9 +67,9 @@ func game_over(score):
 		
 		level_results.sort_custom(self, "comaprison")
 		
-		var one_star_score = _get_avg_from_last_n_results(350, level_results)
-		var two_star_score = _get_avg_from_last_n_results(150, level_results)
-		var three_star_score = _get_avg_from_last_n_results(30, level_results)
+		var one_star_score = _get_avg_from_last_n_results(1000, level_results)
+		var two_star_score = _get_avg_from_last_n_results(800, level_results)
+		var three_star_score = _get_avg_from_last_n_results(600, level_results)
 		
 		emit_signal("level_star_scores", Options.current_level, [one_star_score, two_star_score, three_star_score])
 		
@@ -94,7 +97,7 @@ func _on_grid_updated():
 		random_generator.randomize()
 		
 		var slots = _get_slots_with_tiles_with_modifiers(board)
-		var select_slot_with_modifier = random_generator.randf() < 0.4
+		var select_slot_with_modifier = random_generator.randf() < 0.05#0.4
 		if select_slot_with_modifier and not slots.empty():
 			var slot = slots[random_generator.randi() % slots.size()]
 			path_to_select = path_finder.get_longest_path(slot)
@@ -125,7 +128,7 @@ func _get_avg_from_last_n_results(n: int, results: Array):
 	var first_index = size - n - 1
 	var star_score = 0
 	for i in n:
-		var score = level_results[first_index + i].score
+		var score = results[first_index + i].score
 		star_score += score
 	
 	return star_score / n

@@ -30,7 +30,7 @@ func _on_StartGameButton_button_up():
 	SceneManager.change_scene("res://Scenes/LevelsScene.tscn")
 
 func _on_DailyGameButton_button_up():
-	SceneManager.change_scene("res://Scenes/DailyGameScene.tscn")
+	SceneManager.change_scene("res://Scenes/VsGames.tscn")
 
 func _on_HighscoreButton_button_up():
 	SceneManager.change_scene("res://Scenes/HighscoresScene.tscn")

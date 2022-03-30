@@ -11,20 +11,24 @@ signal _on_sign_in_response
 signal received_daily_game_scores
 signal received_daily_game_options
 signal new_token
+signal received_vs_games
+signal receices_start_vs_game
 
 onready var _websocket_client = WebSocketClient.new()
 var _actions = {
 	"getToken": "new_token",
 	"getDailyGame": "received_daily_game_options",
-	"getDailyGameResults": "received_daily_game_scores"
+	"getDailyGameResults": "received_daily_game_scores",
+	"getVsGames": "received_vs_games",
+	"startVsGame": "receices_start_vs_game"
 }
 
 func _ready():
 	_load_token()
 	if OS.is_debug_build():
-		if OS.get_name() == "Windows":
+		if OS.get_name() == "Windows" or OS.get_name() == "X11":
 			_server_url = "ws://127.0.0.1:9000"
-			_connect()
+#			_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDcyODAwODEsInBsYXllcl9pZCI6InRlc3QifQ.GNNx9RBrPklCXXbfP1TMdMkIEKx0YwTWeuUjD16ZBeg"
 		elif OS.get_name() == "Android":
 			_server_url = "ws://192.168.1.240:9000"
 
@@ -56,6 +60,30 @@ func send_daily_game_score(score: int):
 			"score": score
 		}
 	})
+	
+func send_get_vs_games():
+	_do_action({
+		"actionName": "getVsGames",
+		"params": {
+			
+		}
+	})
+	
+func send_create_vs_game():
+	_do_action({
+		"actionName": "createVsGame",
+		"params": {
+			
+		}
+	})
+
+func send_start_game(guid: String):
+	_do_action({
+		"actionName": "startVsGame",
+		"params": {
+			"GameID": guid
+		}
+	})
 
 func _do_action(dict: Dictionary):
 	var peer = _websocket_client.get_peer(1)
@@ -70,13 +98,11 @@ func _data_received():
 	emit_signal(sig, dict.response)
 	
 func _connect():
-	return
 	var err = _websocket_client.connect_to_url(_server_url, [], false, [
 		"Authorization: Bearer " + _token
 	])
 	
 func ws_connect(player_id: String, auth_code: String):
-	return
 	_websocket_client.connect_to_url(_server_url, [], false, [
 		"Authorization: AuthCode " + auth_code,
 		"PlayerId: " + player_id

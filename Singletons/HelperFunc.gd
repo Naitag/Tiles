@@ -20,9 +20,7 @@ func to_dict(node: Node) -> Dictionary:
 			continue
 
 		var property_value = node[key]
-		if property_value is Enum:
-			node_dict[key] = property_value.to_dict()
-		elif property_value is Node:
+		if property_value is Node:
 			node_dict[key] = to_dict(property_value)
 		elif property_value is Array:
 			var array = []
@@ -32,17 +30,14 @@ func to_dict(node: Node) -> Dictionary:
 				else:
 					array.append(property_value_item)
 			node_dict[key] = array
+		elif property_value is Resource:
+			node_dict[key] = property_value.resource_path
 		else:
 			node_dict[key] = property_value
 			
 	return node_dict
 
 func from_dict(node_dict: Dictionary) -> Node:
-	if node_dict["@path"] == "res://Classes/TileModifierOption.gd":
-		var kind = Enum.from_dict(node_dict["kind"])
-		var type = Enum.from_dict(node_dict["type"])
-		return TileModifierOption.new(kind, type, node_dict["chance"])
-
 	var node = dict2inst(node_dict)
 	for k in node_dict.keys():
 		var key = k as String
@@ -51,9 +46,7 @@ func from_dict(node_dict: Dictionary) -> Node:
 
 		var node_dict_value = node_dict[key]
 		if node_dict_value is Dictionary:
-			if node_dict_value.has("_class"):
-				node[key] = Enum.from_dict(node_dict_value)
-			elif node_dict_value.has("@path"):
+			if node_dict_value.has("@path"):
 				node[key] = from_dict(node_dict_value)
 		elif node_dict_value is Array:
 			var array = []
@@ -63,6 +56,10 @@ func from_dict(node_dict: Dictionary) -> Node:
 				else:
 					array.append(node_dict_value_item)
 			node[key] = array
+		elif node_dict_value is String and (node_dict_value as String).begins_with("res://"):
+			node[key] = Scripts.get_dynamicaly_loaded_script(node_dict_value)
+		elif node_dict_value is int:
+			node[key] = node_dict_value as int
 		else:
 			node_dict[key] = node_dict_value
 			
@@ -101,4 +98,30 @@ func save_to_file(file_path: String, array: Array):
 	
 	var json = JSON.print(dict_array, "  ", true)
 	file.store_string(json)
+	file.close()
+
+func load_from_file_new(file_path: String):
+	var file = File.new()
+	if not file.file_exists(file_path):
+		return null
+	
+	file.open(file_path, File.READ)
+	var file_line = file.get_as_text()
+	if file_line == "":
+		return null
+	
+	var result = str2var(file_line)
+
+	file.close()
+	return result
+
+func save_to_file_new(file_path: String, object):
+	var file = File.new()
+	file.open(file_path, File.WRITE)
+
+	var string = var2str(object)
+	string = string.replace("\n", "")
+	string = string.replace(",", ",\n")
+	
+	file.store_string(string)
 	file.close()

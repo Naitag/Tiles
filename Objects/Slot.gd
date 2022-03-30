@@ -1,6 +1,7 @@
 extends Sprite
 class_name Slot
 
+signal selected
 signal updated
 
 var row
@@ -8,7 +9,7 @@ var col
 
 var selected = false
 var need_update = false
-var tile: Tile
+var tile: Tile setget set_tile, get_tile
 var tiles = []
 
 var virtual = false
@@ -60,6 +61,22 @@ func update_tile():
 	
 func is_disabled() -> bool:
 	return tile != null and tile.is_disabled()
+	
+func get_tile() -> Tile:
+	return tile
+	
+func set_tile(tile_: Tile):
+	if (tile != null):
+		tile.disconnect("area_entered", self, "_on_tile_area_entered")
+	
+	if (tile_ != null):
+		tile_.connect("area_entered", self, "_on_tile_area_entered")
+		
+	tile = tile_
+	
+func _on_tile_area_entered(area2d: Area2D):
+	if area2d is ArrowModifier:
+		emit_signal("selected")
 	
 func _get_animation_duration(t: Tile) -> float:
 	var gap = position.y - t.position.y

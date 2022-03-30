@@ -1,12 +1,12 @@
 extends Node
-class_name TileColor
+class_name Direction
 
 var value: String
 
 static func create(value_: String):
-	var i = Scripts.enum_tile_color_script.new()
+	var i = Scripts.enum_direction_script.new()
 	i.value = value_
 	return i
 
-func equals(other: TileColor) -> bool:
+func equals(other: Direction) -> bool:
 	return value == other.value

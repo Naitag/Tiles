@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "ArrowModifier",
+"language": "GDScript",
+"path": "res://Objects/ArrowModifier.gd"
+}, {
+"base": "Node",
+"class": "ArrowModifierOptions",
+"language": "GDScript",
+"path": "res://Objects/ArrowModifierOptions.gd"
+}, {
 "base": "Reference",
 "class": "Board",
 "language": "GDScript",
@@ -19,20 +29,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Coordinastes.gd"
 }, {
-"base": "TileModifier",
+"base": "Node",
+"class": "Direction",
+"language": "GDScript",
+"path": "res://Enums/Direction.gd"
+}, {
+"base": "Sprite",
 "class": "DoubleColor",
 "language": "GDScript",
 "path": "res://Objects/DoubleColor.gd"
 }, {
 "base": "Node",
-"class": "Enum",
+"class": "DoubleColorOptions",
 "language": "GDScript",
-"path": "res://Enums/Enum.gd"
+"path": "res://Objects/DoubleColorOptions.gd"
 }, {
-"base": "TileModifier",
+"base": "Sprite",
 "class": "ExtraMovesModifier",
 "language": "GDScript",
 "path": "res://Objects/ExtraMovesModifier.gd"
+}, {
+"base": "Node",
+"class": "ExtraMovesModifierOptions",
+"language": "GDScript",
+"path": "res://Objects/ExtraMovesModifierOptions.gd"
 }, {
 "base": "Node",
 "class": "FinishedLevel",
@@ -50,6 +70,11 @@ _global_script_classes=[ {
 "path": "res://Objects/Grid.gd"
 }, {
 "base": "Node",
+"class": "GroupOperation",
+"language": "GDScript",
+"path": "res://GroupOperation.gd"
+}, {
+"base": "Node",
 "class": "Level",
 "language": "GDScript",
 "path": "res://Classes/Level.gd"
@@ -64,15 +89,35 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Menu.gd"
 }, {
+"base": "Node",
+"class": "ModifierCreateObject",
+"language": "GDScript",
+"path": "res://Classes/ModifierCreateObject.gd"
+}, {
+"base": "Node",
+"class": "MovesLeftModifierInterface",
+"language": "GDScript",
+"path": "res://Interfaces/MovesLeftModifierInterface.gd"
+}, {
 "base": "Reference",
 "class": "PathFinder",
 "language": "GDScript",
 "path": "res://PathFinder.gd"
 }, {
-"base": "TileModifier",
+"base": "Node",
+"class": "ScoreModifierInterface",
+"language": "GDScript",
+"path": "res://Interfaces/ScoreModifierInterface.gd"
+}, {
+"base": "Sprite",
 "class": "ScoreMultiplier",
 "language": "GDScript",
 "path": "res://Objects/ScoreMultiplier.gd"
+}, {
+"base": "Node",
+"class": "ScoreMultiplierOptions",
+"language": "GDScript",
+"path": "res://Objects/ScoreMultiplierOptions.gd"
 }, {
 "base": "Sprite",
 "class": "Slot",
@@ -84,46 +129,55 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Objects/Tile.gd"
 }, {
-"base": "Sprite",
-"class": "TileModifier",
+"base": "Node",
+"class": "TileColor",
 "language": "GDScript",
-"path": "res://Objects/TileModifier.gd"
+"path": "res://Enums/TileColor.gd"
 }, {
 "base": "Node",
-"class": "TileModifierOption",
+"class": "TileSelectionModifierInterface",
 "language": "GDScript",
-"path": "res://Classes/TileModifierOption.gd"
+"path": "res://Interfaces/TileSelectionModifierInterface.gd"
 }, {
 "base": "TextureButton",
 "class": "UiButton",
 "language": "GDScript",
 "path": "res://UiObjects/UiButton.gd"
 }, {
-"base": "TileModifier",
-"class": "UniqueModifier",
+"base": "Control",
+"class": "VsGame",
 "language": "GDScript",
-"path": "res://Objects/UniqueModifier.gd"
+"path": "res://Scenes/VsGame.gd"
 } ]
 _global_script_class_icons={
+"ArrowModifier": "",
+"ArrowModifierOptions": "",
 "Board": "",
 "Coordinates": "",
+"Direction": "",
 "DoubleColor": "",
-"Enum": "",
+"DoubleColorOptions": "",
 "ExtraMovesModifier": "",
+"ExtraMovesModifierOptions": "",
 "FinishedLevel": "",
 "GameOptions": "",
 "Grid": "",
+"GroupOperation": "",
 "Level": "",
 "LongSelectionMultiplierOption": "",
 "Menu": "",
+"ModifierCreateObject": "",
+"MovesLeftModifierInterface": "",
 "PathFinder": "",
+"ScoreModifierInterface": "",
 "ScoreMultiplier": "",
+"ScoreMultiplierOptions": "",
 "Slot": "",
 "Tile": "",
-"TileModifier": "",
-"TileModifierOption": "",
+"TileColor": "",
+"TileSelectionModifierInterface": "",
 "UiButton": "",
-"UniqueModifier": ""
+"VsGame": ""
 }
 
 [admob]
@@ -203,12 +257,10 @@ Options="*res://Singletons/Options.gd"
 Textures="*res://Singletons/Textures.gd"
 PlayGamesServices="*res://Singletons/PlayGamesServices.gd"
 GameServer="*res://Singletons/GameServer.gd"
-TileColor="*res://Enums/TileColor.gd"
-TileModifierKind="*res://Enums/TileModifierKind.gd"
-TileModifierType="*res://Enums/TileModifierType.gd"
 LevelsManager="*res://Singletons/LevelsManager.gd"
 SceneManager="*res://Singletons/SceneManager.gd"
 MobileAds="*res://addons/admob/src/singletons/MobileAds.gd"
+Scripts="*res://Singletons/Scripts.gd"
 
 [display]
 

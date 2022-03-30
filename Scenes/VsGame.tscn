@@ -1,0 +1,120 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Fonts/normal_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scenes/VsGame.gd" type="Script" id=2]
+[ext_resource path="res://Textures/ButtonPressedGreen.png" type="Texture" id=3]
+[ext_resource path="res://UiObjects/UiButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Textures/ButtonGreen.png" type="Texture" id=5]
+
+[node name="VsGame" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 2
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 1080.0
+margin_bottom = 59.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IdLabel" type="Label" parent="HBoxContainer"]
+margin_right = 77.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 1 )
+text = "ID: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IdValueLabel" type="Label" parent="HBoxContainer"]
+margin_left = 81.0
+margin_right = 1080.0
+margin_bottom = 59.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+text = "cbb5e384-78ff-45fa-b1c5-85d2a837a4b9"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+margin_top = 63.0
+margin_right = 1080.0
+margin_bottom = 122.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OwnerLabel" type="Label" parent="HBoxContainer2"]
+margin_right = 176.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 1 )
+text = "Owner: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OwnerValueLabel" type="Label" parent="HBoxContainer2"]
+margin_left = 180.0
+margin_right = 1080.0
+margin_bottom = 59.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+text = "test owner"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="."]
+margin_top = 126.0
+margin_right = 1080.0
+margin_bottom = 185.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayersLabel" type="Label" parent="HBoxContainer3"]
+margin_right = 189.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 1 )
+text = "Players: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayersValueLabel" type="Label" parent="HBoxContainer3"]
+margin_left = 193.0
+margin_right = 1080.0
+margin_bottom = 59.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+text = "testplayer1, testplayer2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayButton" parent="." instance=ExtResource( 4 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 290.0
+margin_top = 189.0
+margin_right = 790.0
+margin_bottom = 289.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 3 )
+_color = 1
+_text = "Play"
+
+[connection signal="button_up_not_ouside" from="PlayButton" to="." method="_on_CreateButton_button_up_not_ouside"]

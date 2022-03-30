@@ -1,7 +1,6 @@
 extends Node2D
 class_name Grid
 
-signal game_over
 signal updated
 
 var columns = 8
@@ -20,8 +19,14 @@ onready var _slots_updating_number = 0
 var testing = false
 
 var board: Board
+var group_operation: GroupOperation
 
 onready var game_options = Options.current_level.game_options
+
+var slot_width
+var slot_height
+var slot_width_height
+var x_margin
 
 func _init():
 	for i in columns:
@@ -32,6 +37,9 @@ func _ready():
 		seed(Options.current_level.game_options.fixed_seed.hash())
 	else:
 		randomize()
+		
+	group_operation = GroupOperation.new()
+	group_operation.connect("all_ended", self, "_on_all_selection_modifiers_ended")
 	
 	rows = game_options.grid_rows
 	columns = game_options.grid_columns
@@ -39,8 +47,25 @@ func _ready():
 	var err = board.connect("slot_created", self, "_on_slot_created")
 	assert(err == 0)
 	
+	_init_size_variables()
+	
 	var slot_scene = load("res://Objects/Slot.tscn")
 	board.prepare_slots(slot_scene)
+	
+func _init_size_variables():
+	var columns_spacings = (board.columns) * spacing
+	var rows_spacings = (board.rows) * spacing
+
+	var vieport_rect = get_viewport()
+	
+	var width = vieport_rect.size.x - columns_spacings
+	var height = vieport_rect.size.y - rows_spacings
+
+	slot_width = width / board.columns
+	slot_height = height / board.rows
+	slot_width_height = min(slot_width, slot_height)
+
+	x_margin = (vieport_rect.size.x / 2) - (slot_width_height * columns / 2) - (columns_spacings / 2)
 
 func _on_slot_created(slot: Slot, row: int, col: int):
 	add_child(slot)
@@ -48,6 +73,7 @@ func _on_slot_created(slot: Slot, row: int, col: int):
 	set_slot_position_and_scale(slot, coordinates.col, coordinates.row)
 	
 	slot.connect("updated", self, "_on_slot_updated", [slot])
+	slot.connect("selected", self, "_on_slot_selected", [slot])
 	
 	if row == rows:
 		slot.virtual = true
@@ -73,34 +99,20 @@ func _on_tile_input_event(_viewport, _event, _shape_idx, slot):
 		select_slot(slot)
 
 func set_slot_position_and_scale(node: Node2D, col: int, row: int):
-	var columns_spacings = (board.columns) * spacing
-	var rows_spacings = (board.rows) * spacing
-
-	var vieport_rect = get_viewport()
-	
-	var width = vieport_rect.size.x - columns_spacings
-	var height = vieport_rect.size.y - rows_spacings
-	var width_height = min(width, height)
-
-	var slot_width = width / board.columns
-	var slot_height = height / board.rows
-	var slot_width_height = min(slot_width, slot_height)
-
-	var x_margin = 0
-	#if width > height:
-	x_margin = (vieport_rect.size.x / 2) - (slot_width_height * columns / 2) - (columns_spacings / 2)
-		
-	var x = x_margin + (col * slot_width_height) + (spacing * col)
-	var y = (row * slot_width_height) + spacing * (row)
-	
 	var scale_vector = Vector2(slot_width_height, slot_width_height)
 	
 	if node is Tile:
 		var size = node.sprite.texture.get_size()
 		scale_vector = Vector2(slot_width_height / size.x, slot_width_height / size.y)
 
-	node.position = Vector2(x, y)
+	node.position = get_slot_position(col, row)
 	node.scale = scale_vector
+	
+func get_slot_position(col: int, row: int) -> Vector2:
+	var x = x_margin + (col * slot_width_height) + (spacing * col) + (slot_width / 2)
+	var y = (row * slot_width_height) + (spacing * row) + (slot_height / 2)
+	
+	return Vector2(x, y)
 
 func deselect_all_slots():
 	for slot in selected_slots:
@@ -109,7 +121,7 @@ func deselect_all_slots():
 	selected_slots = []
 	stop_fake_selections = false
 
-func select_slot(slot: Slot):
+func select_slot(slot: Slot, test_neighbours = true):
 	if _slots_updating_number != 0:
 		return
 
@@ -127,30 +139,31 @@ func select_slot(slot: Slot):
 	if slot.selected:
 		return
 	
-	var last_selected_slot = selected_slots.back()
+	if test_neighbours:
+		var last_selected_slot = selected_slots.back()
 
-	if not are_slots_neighbours(slot, last_selected_slot):
-		return
+		if not are_slots_neighbours(slot, last_selected_slot):
+			return
 
-	var slot_to_left = board.get_slot_to_left(slot)
-	if slot_to_left == last_selected_slot and slot.has_same_color(slot_to_left):
-		slot.select()
-		selected_slots.append(slot)
+		var slot_to_left = board.get_slot_to_left(slot)
+		if slot_to_left == last_selected_slot and slot.has_same_color(slot_to_left):
+			slot.select()
+			selected_slots.append(slot)
 
-	var slot_to_right = board.get_slot_to_right(slot)
-	if slot_to_right == last_selected_slot and slot.has_same_color(slot_to_right):
-		slot.select()
-		selected_slots.append(slot)
+		var slot_to_right = board.get_slot_to_right(slot)
+		if slot_to_right == last_selected_slot and slot.has_same_color(slot_to_right):
+			slot.select()
+			selected_slots.append(slot)
 
-	var slot_above = board.get_slot_above(slot)
-	if slot_above == last_selected_slot and slot.has_same_color(slot_above):
-		slot.select()
-		selected_slots.append(slot)
+		var slot_above = board.get_slot_above(slot)
+		if slot_above == last_selected_slot and slot.has_same_color(slot_above):
+			slot.select()
+			selected_slots.append(slot)
 
-	var slot_below = board.get_slot_below(slot)
-	if slot_below == last_selected_slot and slot.has_same_color(slot_below):
-		slot.select()
-		selected_slots.append(slot)
+		var slot_below = board.get_slot_below(slot)
+		if slot_below == last_selected_slot and slot.has_same_color(slot_below):
+			slot.select()
+			selected_slots.append(slot)
 		
 	ScoreCounter.compute_current_selection_score(selected_slots)
 	
@@ -170,7 +183,47 @@ func selection_stop():
 	if selected_slots.size() < 3:
 		deselect_all_slots()
 		return
+		
+	set_physics_process(false)
 
+	group_operation.clear(ArrowModifier.end_signal_name)
+	for slot in selected_slots:
+		var modifiers = slot.tile.get_modifiers()
+		for modifier in modifiers:
+			if modifier is ArrowModifier and not modifier.triggered:
+				var off_grid_position: Vector2
+				if modifier.direction.equals(Constants.UP):
+					var coordinates = board.get_slot_col_row(slot)
+					off_grid_position = get_slot_position(coordinates.col, -3)
+				elif modifier.direction.equals(Constants.DOWN):
+					var coordinates = board.get_slot_col_row(slot)
+					off_grid_position = get_slot_position(coordinates.col, rows + 3)
+				elif modifier.direction.equals(Constants.LEFT):
+					var coordinates = board.get_slot_col_row(slot)
+					off_grid_position = get_slot_position(-3, coordinates.row)
+				elif modifier.direction.equals(Constants.RIGHT):
+					var coordinates = board.get_slot_col_row(slot)
+					off_grid_position = get_slot_position(columns + 3, coordinates.row)
+
+				modifier.connect("animation_end", group_operation, "_on_end_signal")
+				group_operation.add_object(modifier, [off_grid_position])
+			
+	group_operation.start("trigger")
+	
+func _get_selected_not_triggered_arrow_modifiers():
+	var result = []
+	for slot in selected_slots:
+		var modifiers = slot.tile.get_modifiers()
+		for modifier in modifiers:
+			if modifier is ArrowModifier and not modifier.triggered:
+				result.append(modifier)
+	return result
+
+func _on_all_selection_modifiers_ended():
+	if not _get_selected_not_triggered_arrow_modifiers().empty():
+		selection_stop()
+		return
+	
 	ScoreCounter.update_with_selected_slots(selected_slots)
 	ScoreCounter.compute_current_selection_score([])
 
@@ -192,6 +245,7 @@ func selection_stop():
 		_update_slot(slot)
 
 	_reset_cell_to_spawn_in_columns()
+	set_physics_process(true)
 	
 func _check_if_game_is_over():
 	var path_finder = PathFinder.new(board)
@@ -278,6 +332,7 @@ func are_slots_neighbours(slot: Slot, slot2: Slot) -> bool:
 
 
 func _on_Viewport_size_changed():
+	_init_size_variables()
 	for i in board.rows:
 		for j in board.columns:
 			var slot = board.slots[i][j]
@@ -304,3 +359,9 @@ func _on_slot_updated(slot: Slot):
 		_check_if_game_is_over()
 		ScoreCounter.check_if_game_is_over()
 		emit_signal("updated")
+		
+func _on_slot_selected(slot: Slot):
+	if selected_slots.find(slot) == -1:
+		slot.select()
+		selected_slots.append(slot)
+		ScoreCounter.compute_current_selection_score(selected_slots)

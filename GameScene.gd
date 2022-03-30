@@ -17,8 +17,6 @@ func _ready():
 	ScoreCounter.connect("score_changed", self, "_on_score_changed")
 	ScoreCounter.connect("moves_left_changed", self, "_on_moves_left_changed")
 	ScoreCounter.connect("game_over", self, "_on_game_over")
-	
-	ScoreCounter.reset(2)
 
 func _set_container_sizes():
 	var viewport: Viewport = get_viewport()
